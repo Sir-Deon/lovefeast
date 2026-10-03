@@ -1,5 +1,5 @@
 import { randomBytes } from "node:crypto";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { REGISTRATION_FEE } from "./config";
 import { PrismaClient, type Registration as Row } from "@/generated/prisma/client";
 
@@ -14,7 +14,9 @@ const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
-    adapter: new PrismaBetterSqlite3({ url: process.env.DATABASE_URL ?? "file:./dev.db" }),
+    // Use Neon's pooled connection string here. Keep the pool tiny: every serverless
+    // instance opens its own, and Neon's pooler does the real multiplexing.
+    adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL, max: 3 }),
   });
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 

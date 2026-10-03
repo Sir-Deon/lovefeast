@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Locd & Rooted — event registration
 
-## Getting Started
+Next.js + Prisma (SQLite / Turso) + Fapshi payments. See `.env.example` for all settings.
 
-First, run the development server:
+## Local development
 
-```bash
+```
+cp .env.example .env.local   # fill in values, incl. a Neon DATABASE_URL / DIRECT_URL
+npm install
+npm run db:push              # creates the tables in Neon
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tip: create a separate Neon *branch* for local development so test data stays out of production.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Admin: `/admin` (password = `ADMIN_PASSWORD`). Check-in: `/admin/checkin`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy to Netlify
 
-## Learn More
+1. Create a Neon project. From its dashboard copy two connection strings: the **pooled** one
+   (`DATABASE_URL`) and the **direct** one (`DIRECT_URL`).
+2. Create the tables once: `npm run db:push` with `DIRECT_URL` set to the production database.
+3. Push the repo to GitHub and import it in Netlify (build settings come from `netlify.toml`).
+4. Set these environment variables in Netlify (Site configuration → Environment variables):
+   `APP_URL` (your Netlify URL, no trailing slash), `REGISTRATION_FEE`, `FAPSHI_BASE_URL`,
+   `FAPSHI_API_KEY`, `FAPSHI_API_USER`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `DATABASE_URL`.
+5. In the Fapshi dashboard set the webhook to `APP_URL/api/webhook/fapshi`.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Changing an environment variable on Netlify requires a redeploy.

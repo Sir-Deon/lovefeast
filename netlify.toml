@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Prisma CLI: avoid network checks/checksum lookups during the build
+  CHECKPOINT_DISABLE = "1"
+  PRISMA_HIDE_UPDATE_MESSAGE = "1"
