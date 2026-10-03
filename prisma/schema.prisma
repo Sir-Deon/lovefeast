@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Registration {
+  id             String    @id
+  fullName       String
+  email          String
+  phone          String
+  whatsapp       String    @default("")
+  amount         Int       @default(10000) // fee agreed at registration time
+  status         String    @default("CREATED") // CREATED | PENDING | SUCCESSFUL | FAILED | EXPIRED
+  paymentMethod  String    @default("ONLINE") // ONLINE | CASH
+  transId        String?   @unique
+  paymentLink    String?
+  createdByAdmin Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  paidAt         DateTime?
+  admittedAt     DateTime?
+
+  @@index([createdAt])
+}
