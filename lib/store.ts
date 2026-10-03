@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { REGISTRATION_FEE } from "./config";
+import { onlineAmount, REGISTRATION_FEE } from "./config";
 import { PrismaClient, type Registration as Row } from "@/generated/prisma/client";
 
 export type PaymentStatus = "CREATED" | "PENDING" | "SUCCESSFUL" | "FAILED" | "EXPIRED";
@@ -46,7 +46,7 @@ export async function createRegistration(
   for (let attempt = 0; ; attempt++) {
     try {
       const row = await prisma.registration.create({
-        data: { id: newId(), amount: REGISTRATION_FEE, ...input, paidAt: input.status === "SUCCESSFUL" ? new Date() : null },
+        data: { id: newId(), amount: input.paymentMethod === "ONLINE" ? onlineAmount() : REGISTRATION_FEE, ...input, paidAt: input.status === "SUCCESSFUL" ? new Date() : null },
       });
       return row as Registration;
     } catch (e) {

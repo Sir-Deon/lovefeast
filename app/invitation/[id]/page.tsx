@@ -23,7 +23,7 @@ export default async function InvitationPage({ params, searchParams }: PageProps
       {paid ? (
         <>
           <h1 className="font-display text-3xl">You&apos;re in, {reg.fullName.split(" ")[0]}!</h1>
-          <div className="w-full max-w-sm overflow-hidden rounded-xl shadow-xl" dangerouslySetInnerHTML={{ __html: await invitationSvg(reg) }} />
+          <div className="w-full max-w-sm overflow-hidden rounded-xl shadow-xl [&_svg]:block [&_svg]:h-auto [&_svg]:w-full" dangerouslySetInnerHTML={{ __html: await invitationSvg(reg) }} />
           <DownloadInvitation id={reg.id} svg={await invitationSvg(reg)} />
         </>
       ) : (

@@ -3,7 +3,7 @@ import { AdminHeader } from "@/components/AdminHeader";
 import { AdminRegisterForm } from "@/components/AdminRegisterForm";
 import { StatusBadge } from "@/components/StatusBadge";
 import { requireAdmin } from "@/lib/auth";
-import { formatFee } from "@/lib/config";
+import { fapshiFee, formatFee } from "@/lib/config";
 import { listRegistrations } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
@@ -12,18 +12,23 @@ export default async function AdminDashboard() {
   await requireAdmin();
   const all = await listRegistrations();
   const paid = all.filter((r) => r.status === "SUCCESSFUL");
+  const gross = paid.reduce((sum, r) => sum + r.amount, 0);
+  // Fapshi only charges on online payments; cash is received in full.
+  const fees = paid.filter((r) => r.paymentMethod === "ONLINE").reduce((sum, r) => sum + fapshiFee(r.amount), 0);
   const stats: [string, string | number][] = [
     ["Registered", all.length],
     ["Paid", paid.length],
-    ["Admitted", `${all.filter((r) => r.admittedAt).length} / ${paid.length}`],
-    ["Collected", formatFee(paid.reduce((sum, r) => sum + r.amount, 0))],
+    ["Checked in", `${all.filter((r) => r.admittedAt).length} / ${paid.length}`],
+    ["Collected (gross)", formatFee(gross)],
+    ["Fapshi fees", formatFee(fees)],
+    ["Net received", formatFee(gross - fees)],
   ];
 
   return (
     <>
       <AdminHeader active="/admin" />
       <main className="mx-auto w-full max-w-6xl flex-1 space-y-6 px-4 py-6">
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
           {stats.map(([l, v]) => (
             <div key={l} className="rounded-2xl bg-bark p-4 text-cream">
               <p className="text-[11px] uppercase tracking-widest text-caramel">{l}</p>

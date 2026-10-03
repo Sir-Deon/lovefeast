@@ -1,5 +1,5 @@
 import { RegistrationForm } from "@/components/RegistrationForm";
-import { EVENT_NAME, formatFee } from "@/lib/config";
+import { EVENT_NAME, formatFee, onlineAmount, PASS_FAPSHI_FEE, FAPSHI_FEE_PERCENT } from "@/lib/config";
 
 export const dynamic = "force-dynamic"; // fee comes from the env at request time
 
@@ -12,13 +12,13 @@ export default function Home() {
           <h1 className="font-display mt-4 text-5xl italic leading-tight md:text-6xl">{EVENT_NAME}</h1>
           <div className="my-6 h-px w-24 bg-caramel" />
           <p className="max-w-sm text-sand">
-            Secure your place. Register below, pay the {formatFee()} registration fee, and download your personal invitation with its unique QR code.
+            Secure your place. Register below, pay the {formatFee(onlineAmount())} registration fee, and download your personal invitation with its unique QR code.
           </p>
         </section>
         <section className="p-8 md:p-12">
           <h2 className="font-display text-2xl">Register</h2>
-          <p className="mb-6 mt-1 text-sm text-umber">Registration fee: <strong>{formatFee()}</strong></p>
-          <RegistrationForm fee={formatFee()} />
+          <p className="mb-6 mt-1 text-sm text-umber">Registration fee: <strong>{formatFee(onlineAmount())}</strong>{PASS_FAPSHI_FEE && <span> (includes {FAPSHI_FEE_PERCENT}% payment processing fee)</span>}</p>
+          <RegistrationForm fee={formatFee(onlineAmount())} />
         </section>
       </div>
     </main>
