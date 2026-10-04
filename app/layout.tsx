@@ -6,8 +6,8 @@ const display = Fraunces({ variable: "--font-display", subsets: ["latin"], style
 const body = Inter({ variable: "--font-body", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Locd & Rooted — Registration",
-  description: "Register for Locd & Rooted and get your invitation.",
+  title: "Loc'd & Rooted — Registration",
+  description: "Register for Loc'd & Rooted and get your invitation.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

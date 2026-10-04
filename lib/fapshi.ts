@@ -20,7 +20,7 @@ export async function initiatePay(reg: { id: string; email: string; amount: numb
       redirectUrl: `${appUrl()}/invitation/${reg.id}`,
       userId: reg.id,
       externalId: reg.id,
-      message: "Locd & Rooted registration",
+      message: "Loc'd & Rooted registration",
     }),
   });
   const data = await res.json().catch(() => ({}));

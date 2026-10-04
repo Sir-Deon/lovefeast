@@ -12,7 +12,7 @@ export function AdminHeader({ active }: { active: string }) {
   return (
     <header className="sticky top-0 z-10 bg-bark text-cream shadow">
       <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
-        <p className="font-display text-lg italic">Locd &amp; Rooted</p>
+        <p className="font-display text-lg italic">Loc&apos;d &amp; Rooted</p>
         <form action={logout} className="sm:order-3">
           <button className="rounded-md border border-caramel px-3 py-1.5 text-sm hover:bg-espresso">Sign out</button>
         </form>

@@ -1,4 +1,4 @@
-# Locd & Rooted — event registration
+# Loc'd & Rooted — event registration
 
 Next.js + Prisma (SQLite / Turso) + Fapshi payments. See `.env.example` for all settings.
 

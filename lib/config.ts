@@ -1,4 +1,4 @@
-export const EVENT_NAME = "Locd & Rooted";
+export const EVENT_NAME = "Loc'd & Rooted";
 /** Registration fee in XAF, set with REGISTRATION_FEE in the env (default 10000). */
 export const REGISTRATION_FEE = (() => {
   const raw = process.env.REGISTRATION_FEE;
