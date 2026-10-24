@@ -22,6 +22,8 @@ model Registration {
   createdAt      DateTime  @default(now())
   paidAt         DateTime?
   admittedAt     DateTime?
+  tableNumber    String?
+  seatNumber     String?
 
   @@index([createdAt])
 }

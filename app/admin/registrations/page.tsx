@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AdminHeader } from "@/components/AdminHeader";
 import { AdmittedBadge, STATUSES, StatusBadge } from "@/components/StatusBadge";
+import { SeatingForm } from "@/components/SeatingForm";
 import { SubmitButton } from "@/components/SubmitButton";
 import { requireAdmin } from "@/lib/auth";
 import { listRegistrations, type Registration } from "@/lib/store";
@@ -68,6 +69,7 @@ export default async function RegistrationsPage({ searchParams }: PageProps<"/ad
                 <dt className="text-slate">Via</dt><dd>{r.paymentMethod}{r.createdByAdmin && " · admin"}</dd>
                 <dt className="text-slate">Date</dt><dd>{fmt(r.createdAt)}</dd>
               </dl>
+              <SeatingForm r={r} />
               <Actions r={r} />
             </li>
           ))}
@@ -77,7 +79,7 @@ export default async function RegistrationsPage({ searchParams }: PageProps<"/ad
         <div className="hidden overflow-x-auto rounded-2xl bg-linen shadow-sm md:block">
           <table className="w-full text-left text-sm">
             <thead className="bg-mist text-xs uppercase tracking-wider text-slate">
-              <tr>{["ID", "Name", "Email", "Phone", "WhatsApp", "Status", "Via", "Registered", ""].map((h) => <th key={h} className="px-4 py-3">{h}</th>)}</tr>
+              <tr>{["ID", "Name", "Email", "Phone", "WhatsApp", "Status", "Via", "Registered", "Table / Seat", ""].map((h) => <th key={h} className="px-4 py-3">{h}</th>)}</tr>
             </thead>
             <tbody>
               {rows.map((r) => (
@@ -90,6 +92,7 @@ export default async function RegistrationsPage({ searchParams }: PageProps<"/ad
                   <td className="space-y-1 px-4 py-3"><StatusBadge status={r.status} />{r.admittedAt && <div><AdmittedBadge /></div>}</td>
                   <td className="px-4 py-3">{r.paymentMethod}{r.createdByAdmin && " · admin"}</td>
                   <td className="whitespace-nowrap px-4 py-3">{fmt(r.createdAt)}</td>
+                  <td className="px-4 py-3"><SeatingForm r={r} /></td>
                   <td className="px-4 py-3"><Actions r={r} /></td>
                 </tr>
               ))}

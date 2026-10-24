@@ -127,6 +127,7 @@ export function CheckIn({ initialCode = "" }: { initialCode?: string }) {
               <h2 className="font-display text-2xl">{g.fullName}</h2>
               <p className="font-mono text-sm opacity-90">{g.id}</p>
               <p className="text-sm opacity-90">{g.email} · {g.phone}</p>
+              <p className="text-lg font-semibold">{g.tableNumber || g.seatNumber ? `Table ${g.tableNumber ?? "—"} · Seat ${g.seatNumber ?? "—"}` : "No seat assigned"}</p>
               {result.admitted ? (
                 <p className="text-lg font-semibold">Admitted — welcome!</p>
               ) : g.admittedAt ? (

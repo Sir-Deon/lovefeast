@@ -44,6 +44,15 @@ export async function markPaidCash(id: string) {
   revalidatePath("/admin", "layout");
 }
 
+/** Allocate (or clear, with blank values) a guest's table and seat. */
+export async function assignSeating(id: string, formData: FormData) {
+  await requireAdmin();
+  const clean = (k: string) => String(formData.get(k) ?? "").trim().slice(0, 20) || null;
+  await updateRegistration(id, { tableNumber: clean("tableNumber"), seatNumber: clean("seatNumber") });
+  revalidatePath("/admin", "layout");
+  revalidatePath(`/invitation/${id}`);
+}
+
 export async function removeRegistration(id: string) {
   await requireAdmin();
   await deleteRegistration(id);
@@ -67,6 +76,8 @@ export type Guest = {
   paid: boolean;
   status: string;
   admittedAt: string | null;
+  tableNumber: string | null;
+  seatNumber: string | null;
 };
 
 /** Accepts a bare code (LR-XXXXXXXX) or the full URL from the QR. */
@@ -83,6 +94,8 @@ export async function lookupGuest(input: string): Promise<Guest | null> {
     paid: reg.status === "SUCCESSFUL",
     status: reg.status,
     admittedAt: reg.admittedAt?.toISOString() ?? null,
+    tableNumber: reg.tableNumber,
+    seatNumber: reg.seatNumber,
   };
 }
 
