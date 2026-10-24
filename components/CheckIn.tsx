@@ -79,7 +79,7 @@ export function CheckIn({ initialCode = "" }: { initialCode?: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl bg-paper p-4 shadow-sm sm:p-5">
+      <div className="rounded-2xl bg-linen p-4 shadow-sm sm:p-5">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -109,13 +109,13 @@ export function CheckIn({ initialCode = "" }: { initialCode?: string }) {
         {scanning && (
           <div className="relative mt-3 overflow-hidden rounded-xl bg-black">
             <video ref={video} playsInline muted className="aspect-square w-full object-cover" />
-            <div className="pointer-events-none absolute inset-8 rounded-xl border-2 border-caramel" />
+            <div className="pointer-events-none absolute inset-8 rounded-xl border-2 border-gold" />
           </div>
         )}
       </div>
 
       {result && (
-        <div className={`space-y-3 rounded-2xl p-6 text-center text-cream shadow ${tone}`}>
+        <div className={`space-y-3 rounded-2xl p-6 text-center text-ivory shadow ${tone}`}>
           {!g ? (
             <>
               <p className="text-4xl">✕</p>
@@ -142,7 +142,7 @@ export function CheckIn({ initialCode = "" }: { initialCode?: string }) {
                       setResult({ guest: r.guest, admitted: r.ok });
                     })
                   }
-                  className="w-full rounded-lg bg-cream py-3.5 text-lg font-bold text-bark disabled:opacity-60"
+                  className="w-full rounded-lg bg-ivory py-3.5 text-lg font-bold text-navy disabled:opacity-60"
                 >
                   {pending ? "Admitting…" : "Admit"}
                 </button>

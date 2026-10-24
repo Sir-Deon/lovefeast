@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { readDetails, startPayment } from "@/lib/registration";
+import { formatFee, MIN_AMOUNT } from "@/lib/config";
 import { createRegistration, getRegistration } from "@/lib/store";
 
 export type FormState = { error?: string; values?: Record<string, string> };
@@ -10,7 +11,12 @@ export async function register(_: FormState, formData: FormData): Promise<FormSt
   const { v, error } = readDetails(formData);
   if (error) return { error, values: v };
 
-  const reg = await createRegistration({ ...v, createdByAdmin: false, paymentMethod: "ONLINE" });
+  const amount = Number(String(formData.get("amount") ?? "").replace(/[\s\u00a0\u202f]/g, ""));
+  if (!Number.isInteger(amount) || amount < MIN_AMOUNT) {
+    return { error: `Please enter a valid amount (minimum ${formatFee(MIN_AMOUNT)}).`, values: { ...v, amount: String(formData.get("amount") ?? "") } };
+  }
+
+  const reg = await createRegistration({ ...v, amount, createdByAdmin: false, paymentMethod: "ONLINE" });
   let link: string;
   try {
     link = await startPayment(reg);

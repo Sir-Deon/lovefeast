@@ -2,17 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { checkPassword, endSession, requireAdmin, startSession } from "@/lib/auth";
-import { admitRegistration, createRegistration, deleteRegistration, getRegistration, updateRegistration } from "@/lib/store";
+import { endSession, requireAdmin } from "@/lib/auth";
+import { admitRegistration, createRegistration, deleteAllRegistrations, deleteRegistration, getRegistration, updateRegistration } from "@/lib/store";
 import { readDetails, startPayment } from "@/lib/registration";
 
 export type AdminState = { error?: string; ok?: string; link?: string };
-
-export async function login(_: AdminState, formData: FormData): Promise<AdminState> {
-  if (!checkPassword(String(formData.get("password") ?? ""))) return { error: "Wrong password." };
-  await startSession();
-  redirect("/admin");
-}
 
 export async function logout() {
   await endSession();
@@ -54,6 +48,15 @@ export async function removeRegistration(id: string) {
   await requireAdmin();
   await deleteRegistration(id);
   revalidatePath("/admin", "layout");
+}
+
+/** Wipes every registration. The admin must type DELETE to confirm. */
+export async function deleteAllData(_: AdminState, formData: FormData): Promise<AdminState> {
+  await requireAdmin();
+  if (String(formData.get("confirm") ?? "").trim() !== "DELETE") return { error: "Type DELETE to confirm." };
+  const count = await deleteAllRegistrations();
+  revalidatePath("/admin", "layout");
+  return { ok: `Deleted ${count} registration${count === 1 ? "" : "s"}.` };
 }
 
 export type Guest = {

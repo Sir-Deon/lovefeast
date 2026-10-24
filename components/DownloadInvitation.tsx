@@ -13,7 +13,7 @@ export function DownloadInvitation({ id, svg }: { id: string; svg: string }) {
       canvas.toBlob((png) => {
         const a = document.createElement("a");
         a.href = URL.createObjectURL(png!);
-        a.download = `locd-and-rooted-invitation-${id}.png`;
+        a.download = `love-feast-invitation-${id}.png`;
         a.click();
       }, "image/png");
     };

@@ -27,9 +27,9 @@ export default async function InvitationPage({ params, searchParams }: PageProps
           <DownloadInvitation id={reg.id} svg={await invitationSvg(reg)} />
         </>
       ) : (
-        <div className="w-full rounded-2xl bg-paper p-8 text-center shadow">
+        <div className="w-full rounded-2xl bg-linen p-8 text-center shadow">
           <h1 className="font-display text-2xl">Payment {reg.status === "PENDING" ? "pending" : "not completed"}</h1>
-          <p className="mt-2 text-umber">
+          <p className="mt-2 text-slate">
             {reg.status === "PENDING" && "We haven't received confirmation yet. Refresh in a moment, or try again."}
             {reg.status === "FAILED" && "Your payment failed."}
             {reg.status === "EXPIRED" && "Your payment session expired."}
@@ -39,7 +39,7 @@ export default async function InvitationPage({ params, searchParams }: PageProps
           <form action={retryPayment.bind(null, reg.id)} className="mt-6">
             <SubmitButton pending="Redirecting…">Pay {formatFee(reg.amount)}</SubmitButton>
           </form>
-          <p className="mt-4 text-xs text-umber">Reference {reg.id}</p>
+          <p className="mt-4 text-xs text-slate">Reference {reg.id}</p>
         </div>
       )}
     </main>

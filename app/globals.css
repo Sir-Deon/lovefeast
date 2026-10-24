@@ -1,30 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #f6ecdc;
-  --paper: #fbf5ea;
-  --espresso: #2a1709;
-  --bark: #3b2314;
-  --umber: #7a5638;
-  --caramel: #a9743f;
-  --sand: #e4d2b6;
+  --ivory: #f7f3ea;
+  --linen: #fcfaf4;
+  --midnight: #111a33;
+  --navy: #1c2a4a;
+  --slate: #4f5d7a;
+  --gold: #b8923a;
+  --mist: #ddd5c0;
 }
 
 @theme inline {
-  --color-cream: var(--cream);
-  --color-paper: var(--paper);
-  --color-espresso: var(--espresso);
-  --color-bark: var(--bark);
-  --color-umber: var(--umber);
-  --color-caramel: var(--caramel);
-  --color-sand: var(--sand);
+  --color-ivory: var(--ivory);
+  --color-linen: var(--linen);
+  --color-midnight: var(--midnight);
+  --color-navy: var(--navy);
+  --color-slate: var(--slate);
+  --color-gold: var(--gold);
+  --color-mist: var(--mist);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
 }
 
 body {
-  background: var(--cream);
-  color: var(--bark);
+  background: var(--ivory);
+  color: var(--navy);
   font-family: var(--font-body), system-ui, sans-serif;
 }
 
@@ -32,22 +32,22 @@ body {
 
 .field {
   width: 100%;
-  border: 1px solid var(--sand);
-  background: var(--paper);
+  border: 1px solid var(--mist);
+  background: var(--linen);
   border-radius: 0.5rem;
   padding: 0.7rem 0.9rem;
-  color: var(--bark);
+  color: var(--navy);
   outline: none;
 }
-.field:focus { border-color: var(--caramel); box-shadow: 0 0 0 3px rgb(169 116 63 / 0.25); }
+.field:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgb(184 146 58 / 0.25); }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-  background: var(--bark); color: var(--cream);
+  background: var(--navy); color: var(--ivory);
   border-radius: 0.5rem; padding: 0.75rem 1.25rem; font-weight: 600;
   transition: background .15s; cursor: pointer;
 }
-.btn:hover { background: var(--espresso); }
+.btn:hover { background: var(--midnight); }
 .btn:disabled { opacity: .6; cursor: wait; }
-.btn-ghost { background: transparent; color: var(--bark); border: 1px solid var(--caramel); }
-.btn-ghost:hover { background: var(--sand); }
+.btn-ghost { background: transparent; color: var(--navy); border: 1px solid var(--gold); }
+.btn-ghost:hover { background: var(--mist); }

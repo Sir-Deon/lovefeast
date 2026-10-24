@@ -1,4 +1,4 @@
-export const EVENT_NAME = "Loc'd & Rooted";
+export const EVENT_NAME = "Love Feast";
 /** Registration fee in XAF, set with REGISTRATION_FEE in the env (default 10000). */
 export const REGISTRATION_FEE = (() => {
   const raw = process.env.REGISTRATION_FEE;
@@ -8,6 +8,9 @@ export const REGISTRATION_FEE = (() => {
   return n;
 })();
 export const CURRENCY = "FCFA";
+
+/** Smallest amount a guest can enter (Fapshi rejects payments below 100 XAF). */
+export const MIN_AMOUNT = 100;
 
 /** Fapshi's cut of each online payment, in percent (FAPSHI_FEE_PERCENT, default 3). */
 export const FAPSHI_FEE_PERCENT = Number(process.env.FAPSHI_FEE_PERCENT ?? 3);

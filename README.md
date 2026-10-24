@@ -1,4 +1,4 @@
-# Loc'd & Rooted — event registration
+# Love Feast — event registration
 
 Next.js + Prisma (SQLite / Turso) + Fapshi payments. See `.env.example` for all settings.
 
@@ -13,7 +13,7 @@ npm run dev
 
 Tip: create a separate Neon *branch* for local development so test data stays out of production.
 
-Admin: `/admin` (password = `ADMIN_PASSWORD`). Check-in: `/admin/checkin`.
+Admin: `/admin` (open the private link `APP_URL/admin/access/<ADMIN_ACCESS_TOKEN>`; generate a token with `openssl rand -hex 24`). Check-in: `/admin/checkin`.
 
 ## Deploy to Netlify
 
@@ -23,7 +23,7 @@ Admin: `/admin` (password = `ADMIN_PASSWORD`). Check-in: `/admin/checkin`.
 3. Push the repo to GitHub and import it in Netlify (build settings come from `netlify.toml`).
 4. Set these environment variables in Netlify (Site configuration → Environment variables):
    `APP_URL` (your Netlify URL, no trailing slash), `REGISTRATION_FEE`, `FAPSHI_BASE_URL`,
-   `FAPSHI_API_KEY`, `FAPSHI_API_USER`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `DATABASE_URL`.
+   `FAPSHI_API_KEY`, `FAPSHI_API_USER`, `ADMIN_ACCESS_TOKEN`, `ADMIN_SESSION_SECRET`, `DATABASE_URL`.
 5. In the Fapshi dashboard set the webhook to `APP_URL/api/webhook/fapshi`.
 
 Changing an environment variable on Netlify requires a redeploy.

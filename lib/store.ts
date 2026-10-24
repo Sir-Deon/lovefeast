@@ -41,7 +41,7 @@ export async function getByTransId(transId: string) {
 
 export async function createRegistration(
   input: Pick<Registration, "fullName" | "email" | "phone" | "whatsapp" | "createdByAdmin" | "paymentMethod"> &
-    Partial<Pick<Registration, "status">>,
+    Partial<Pick<Registration, "status" | "amount">>,
 ): Promise<Registration> {
   for (let attempt = 0; ; attempt++) {
     try {
@@ -70,6 +70,10 @@ export async function updateRegistration(
 
 export async function deleteRegistration(id: string) {
   await prisma.registration.deleteMany({ where: { id } });
+}
+
+export async function deleteAllRegistrations(): Promise<number> {
+  return (await prisma.registration.deleteMany()).count;
 }
 
 /** Atomically admit a paid, not-yet-admitted guest. Returns false if that wasn't possible. */

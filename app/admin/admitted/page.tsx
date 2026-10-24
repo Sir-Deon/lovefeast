@@ -24,7 +24,7 @@ export default async function AdmittedPage({ searchParams }: PageProps<"/admin/a
       <main className="mx-auto w-full max-w-3xl flex-1 space-y-4 px-4 py-6">
         <div className="flex items-baseline justify-between">
           <h1 className="font-display text-2xl">Checked in</h1>
-          <p className="text-sm text-umber">
+          <p className="text-sm text-slate">
             <strong>{admitted.length}</strong> of {paid.length} paid guests
           </p>
         </div>
@@ -36,17 +36,17 @@ export default async function AdmittedPage({ searchParams }: PageProps<"/admin/a
 
         <ul className="space-y-2">
           {rows.map((r) => (
-            <li key={r.id} className="flex items-center gap-3 rounded-2xl bg-paper p-4 shadow-sm">
-              <span className="w-8 shrink-0 text-center text-sm text-umber">{admitted.length - admitted.indexOf(r)}</span>
+            <li key={r.id} className="flex items-center gap-3 rounded-2xl bg-linen p-4 shadow-sm">
+              <span className="w-8 shrink-0 text-center text-sm text-slate">{admitted.length - admitted.indexOf(r)}</span>
               <div className="min-w-0 flex-1">
                 <p className="truncate font-semibold">{r.fullName}</p>
-                <p className="truncate text-sm text-umber">{r.phone} · <span className="font-mono">{r.id}</span></p>
+                <p className="truncate text-sm text-slate">{r.phone} · <span className="font-mono">{r.id}</span></p>
               </div>
               <p className="shrink-0 text-right text-sm">{fmt(r.admittedAt!)}</p>
             </li>
           ))}
           {rows.length === 0 && (
-            <li className="rounded-2xl bg-paper p-8 text-center text-umber">No one has checked in{query && " matching that search"}.</li>
+            <li className="rounded-2xl bg-linen p-8 text-center text-slate">No one has checked in{query && " matching that search"}.</li>
           )}
         </ul>
       </main>

@@ -21,9 +21,10 @@ function safeEqual(a: string, b: string) {
   return x.length === y.length && timingSafeEqual(x, y);
 }
 
-export function checkPassword(input: string): boolean {
-  const pw = process.env.ADMIN_PASSWORD;
-  return !!pw && safeEqual(input, pw);
+/** The secret in the admin link (ADMIN_ACCESS_TOKEN). Must be long enough to be unguessable. */
+export function checkAccessToken(input: string): boolean {
+  const token = process.env.ADMIN_ACCESS_TOKEN;
+  return !!token && token.length >= 24 && safeEqual(input, token);
 }
 
 export async function startSession() {

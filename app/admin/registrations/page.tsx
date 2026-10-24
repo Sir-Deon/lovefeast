@@ -38,7 +38,7 @@ export default async function RegistrationsPage({ searchParams }: PageProps<"/ad
       <main className="mx-auto w-full max-w-6xl flex-1 space-y-4 px-4 py-6">
         <div className="flex items-baseline justify-between">
           <h1 className="font-display text-2xl">Registrations</h1>
-          <p className="text-sm text-umber">{rows.length} of {all.length}</p>
+          <p className="text-sm text-slate">{rows.length} of {all.length}</p>
         </div>
 
         <form className="grid grid-cols-2 gap-2 sm:flex">
@@ -53,20 +53,20 @@ export default async function RegistrationsPage({ searchParams }: PageProps<"/ad
         {/* Phones: cards */}
         <ul className="space-y-3 md:hidden">
           {rows.map((r) => (
-            <li key={r.id} className="space-y-3 rounded-2xl bg-paper p-4 shadow-sm">
+            <li key={r.id} className="space-y-3 rounded-2xl bg-linen p-4 shadow-sm">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="truncate text-base font-semibold">{r.fullName}</p>
-                  <p className="font-mono text-xs text-umber">{r.id}</p>
+                  <p className="font-mono text-xs text-slate">{r.id}</p>
                 </div>
                 <div className="flex flex-col items-end gap-1"><StatusBadge status={r.status} />{r.admittedAt && <AdmittedBadge />}</div>
               </div>
               <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-                <dt className="text-umber">Email</dt><dd className="break-all">{r.email}</dd>
-                <dt className="text-umber">Phone</dt><dd><a href={`tel:${r.phone}`}>{r.phone}</a></dd>
-                <dt className="text-umber">WhatsApp</dt><dd><a href={`https://wa.me/${r.whatsapp.replace(/\D/g, "")}`} target="_blank">{r.whatsapp}</a></dd>
-                <dt className="text-umber">Via</dt><dd>{r.paymentMethod}{r.createdByAdmin && " · admin"}</dd>
-                <dt className="text-umber">Date</dt><dd>{fmt(r.createdAt)}</dd>
+                <dt className="text-slate">Email</dt><dd className="break-all">{r.email}</dd>
+                <dt className="text-slate">Phone</dt><dd><a href={`tel:${r.phone}`}>{r.phone}</a></dd>
+                <dt className="text-slate">WhatsApp</dt><dd><a href={`https://wa.me/${r.whatsapp.replace(/\D/g, "")}`} target="_blank">{r.whatsapp}</a></dd>
+                <dt className="text-slate">Via</dt><dd>{r.paymentMethod}{r.createdByAdmin && " · admin"}</dd>
+                <dt className="text-slate">Date</dt><dd>{fmt(r.createdAt)}</dd>
               </dl>
               <Actions r={r} />
             </li>
@@ -74,14 +74,14 @@ export default async function RegistrationsPage({ searchParams }: PageProps<"/ad
         </ul>
 
         {/* Tablets and up: table */}
-        <div className="hidden overflow-x-auto rounded-2xl bg-paper shadow-sm md:block">
+        <div className="hidden overflow-x-auto rounded-2xl bg-linen shadow-sm md:block">
           <table className="w-full text-left text-sm">
-            <thead className="bg-sand text-xs uppercase tracking-wider text-umber">
+            <thead className="bg-mist text-xs uppercase tracking-wider text-slate">
               <tr>{["ID", "Name", "Email", "Phone", "WhatsApp", "Status", "Via", "Registered", ""].map((h) => <th key={h} className="px-4 py-3">{h}</th>)}</tr>
             </thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r.id} className="border-t border-sand align-top">
+                <tr key={r.id} className="border-t border-mist align-top">
                   <td className="px-4 py-3 font-mono">{r.id}</td>
                   <td className="px-4 py-3 font-medium">{r.fullName}</td>
                   <td className="px-4 py-3">{r.email}</td>
@@ -97,7 +97,7 @@ export default async function RegistrationsPage({ searchParams }: PageProps<"/ad
           </table>
         </div>
 
-        {rows.length === 0 && <p className="rounded-2xl bg-paper p-8 text-center text-umber">No registrations found.</p>}
+        {rows.length === 0 && <p className="rounded-2xl bg-linen p-8 text-center text-slate">No registrations found.</p>}
       </main>
     </>
   );

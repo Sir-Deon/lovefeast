@@ -1,19 +1,10 @@
-"use client";
-
-import { useActionState } from "react";
-import { login, type AdminState } from "../actions";
-import { SubmitButton } from "@/components/SubmitButton";
-
-export default function LoginPage() {
-  const [state, action] = useActionState<AdminState, FormData>(login, {});
+export default function AccessRequiredPage() {
   return (
-    <main className="flex flex-1 items-center justify-center bg-bark px-4 py-8">
-      <form action={action} className="w-full max-w-sm space-y-4 rounded-2xl bg-cream p-8 shadow-2xl">
+    <main className="flex flex-1 items-center justify-center bg-navy px-4 py-8">
+      <div className="w-full max-w-sm space-y-3 rounded-2xl bg-ivory p-8 text-center shadow-2xl">
         <h1 className="font-display text-2xl">Admin</h1>
-        <input name="password" type="password" required autoFocus placeholder="Password" className="field" />
-        {state.error && <p role="alert" className="text-sm text-red-800">{state.error}</p>}
-        <SubmitButton pending="Signing in…">Sign in</SubmitButton>
-      </form>
+        <p className="text-sm text-slate">Open your private admin link to continue. If you don&apos;t have one, ask the organiser.</p>
+      </div>
     </main>
   );
 }

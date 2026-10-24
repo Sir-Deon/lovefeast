@@ -20,7 +20,7 @@ export async function initiatePay(reg: { id: string; email: string; amount: numb
       redirectUrl: `${appUrl()}/invitation/${reg.id}`,
       userId: reg.id,
       externalId: reg.id,
-      message: "Loc'd & Rooted registration",
+      message: "Love Feast registration",
     }),
   });
   const data = await res.json().catch(() => ({}));
@@ -50,4 +50,18 @@ export async function fetchStatus(transId: string) {
     externalId: data.externalId as string | undefined,
     amount: Number(data.amount),
   };
+}
+
+/** Current Fapshi account balance, or undefined if it can't be fetched. */
+export async function fetchBalance() {
+  try {
+    const res = await fetch(`${BASE}/balance`, { headers: headers(), cache: "no-store" });
+    if (!res.ok) return undefined;
+    const data = await res.json();
+    const balance = Number(data.balance);
+    if (!Number.isFinite(balance)) return undefined;
+    return { balance, currency: String(data.currency ?? "XAF"), service: data.service as string | undefined };
+  } catch {
+    return undefined;
+  }
 }
