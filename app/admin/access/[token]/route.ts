@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkAccessToken, startSession } from "@/lib/auth";
+import { checkAccessToken, sessionCookie } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request, { params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
   if (!checkAccessToken(token)) return new NextResponse("Not found", { status: 404 });
-  await startSession();
-  return NextResponse.redirect(new URL("/admin", request.url), { headers: { "Referrer-Policy": "no-referrer" } });
+  const res = NextResponse.redirect(new URL("/admin", request.url), { headers: { "Referrer-Policy": "no-referrer", "Cache-Control": "no-store" } });
+  res.cookies.set(sessionCookie());
+  return res;
 }

@@ -27,15 +27,18 @@ export function checkAccessToken(input: string): boolean {
   return !!token && token.length >= 24 && safeEqual(input, token);
 }
 
-export async function startSession() {
+/** Name, value and options of a fresh session cookie. */
+export function sessionCookie() {
   const exp = String(Date.now() + MAX_AGE * 1000);
-  (await cookies()).set(COOKIE, `${exp}.${sign(exp)}`, {
+  return {
+    name: COOKIE,
+    value: `${exp}.${sign(exp)}`,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "lax" as const,
     secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: MAX_AGE,
-  });
+  };
 }
 
 export async function endSession() {
