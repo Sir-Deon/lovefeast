@@ -44,8 +44,8 @@ export function CheckIn({ initialCode = "" }: { initialCode?: string }) {
         ctx.drawImage(v, 0, 0);
         const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const hit = jsQR(img.data, img.width, img.height);
-        if (hit && /LR-[A-Z0-9]{8}/i.test(hit.data)) {
-          setCode(hit.data.match(/LR-[A-Z0-9]{8}/i)![0].toUpperCase());
+        if (hit && /L[RF]-[A-Z0-9]{8}/i.test(hit.data)) {
+          setCode(hit.data.match(/L[RF]-[A-Z0-9]{8}/i)![0].toUpperCase());
           setScanning(false);
           lookup(hit.data);
           return;
@@ -91,7 +91,7 @@ export function CheckIn({ initialCode = "" }: { initialCode?: string }) {
           <input
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            placeholder="Invitation code, e.g. LR-7K2M9QXA"
+            placeholder="Invitation code, e.g. LF-7K2M9QXA"
             autoCapitalize="characters"
             autoComplete="off"
             className="field font-mono uppercase"

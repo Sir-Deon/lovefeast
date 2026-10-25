@@ -24,7 +24,7 @@ const typed = (r: Row | null) => (r ? (r as Registration) : undefined);
 
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 function newId(): string {
-  return "LR-" + Array.from(randomBytes(8), (b) => ALPHABET[b % ALPHABET.length]).join("");
+  return "LF-" + Array.from(randomBytes(8), (b) => ALPHABET[b % ALPHABET.length]).join("");
 }
 
 export async function listRegistrations(): Promise<Registration[]> {

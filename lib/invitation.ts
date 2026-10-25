@@ -1,5 +1,6 @@
 import QRCode from "qrcode";
 import { appUrl, EVENT_NAME, formatFee } from "./config";
+import { LGN_LOGO_DATA_URI } from "./lgnLogo";
 import type { Registration } from "./store";
 
 const esc = (s: string) =>
@@ -22,11 +23,12 @@ export async function invitationSvg(reg: Registration): Promise<string> {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 860" width="600" height="860">
 <rect width="600" height="860" fill="#1c2a4a"/>
 <rect x="20" y="20" width="560" height="820" rx="18" fill="#f7f3ea"/>
+<path d="M20 38a18 18 0 0 1 18-18H562a18 18 0 0 1 18 18V152H20Z" fill="#1c2a4a"/>
+<image href="${LGN_LOGO_DATA_URI}" x="228" y="40" width="144" height="72"/>
 <rect x="34" y="34" width="532" height="792" rx="12" fill="none" stroke="#b8923a" stroke-width="2"/>
-<path transform="translate(291 52) scale(0.75)" fill="#b8923a" d="M10 0h4v9h8v4h-8v19h-4V13H2V9h8z"/>
-<text x="300" y="110" text-anchor="middle" font-family="${serif}" font-size="15" letter-spacing="6" fill="#b8923a">YOU ARE INVITED TO</text>
-<text x="300" y="190" text-anchor="middle" font-family="${serif}" font-size="58" font-style="italic" fill="#1c2a4a">${esc(EVENT_NAME)}</text>
-<line x1="220" y1="225" x2="380" y2="225" stroke="#b8923a" stroke-width="2"/>
+<text x="300" y="138" text-anchor="middle" font-family="${serif}" font-size="15" letter-spacing="6" fill="#b8923a">YOU ARE INVITED TO</text>
+<text x="300" y="214" text-anchor="middle" font-family="${serif}" font-size="58" font-style="italic" fill="#1c2a4a">${esc(EVENT_NAME)}</text>
+<line x1="220" y1="246" x2="380" y2="246" stroke="#b8923a" stroke-width="2"/>
 <text x="300" y="290" text-anchor="middle" font-family="${serif}" font-size="14" letter-spacing="4" fill="#4f5d7a">GUEST</text>
 <text x="300" y="335" text-anchor="middle" font-family="${serif}" font-size="${reg.fullName.length > 22 ? 28 : 36}" fill="#1c2a4a">${esc(reg.fullName)}</text>
 <text x="300" y="372" text-anchor="middle" font-family="${serif}" font-size="18" fill="#4f5d7a">${esc(reg.email)}</text>

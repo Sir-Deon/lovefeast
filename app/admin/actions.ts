@@ -80,10 +80,10 @@ export type Guest = {
   seatNumber: string | null;
 };
 
-/** Accepts a bare code (LR-XXXXXXXX) or the full URL from the QR. */
+/** Accepts a bare code (LF-XXXXXXXX; older LR- codes still work) or the full URL from the QR. */
 export async function lookupGuest(input: string): Promise<Guest | null> {
   await requireAdmin();
-  const id = /LR-[A-Z0-9]{8}/.exec(input.toUpperCase())?.[0];
+  const id = /L[RF]-[A-Z0-9]{8}/.exec(input.toUpperCase())?.[0];
   const reg = id ? await getRegistration(id) : undefined;
   if (!reg) return null;
   return {

@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createHmac, timingSafeEqual } from "node:crypto";
 
-const COOKIE = "lr_admin";
+const COOKIE = "lf_admin";
 const MAX_AGE = 60 * 60 * 12;
 
 function secret() {
